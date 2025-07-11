@@ -8,7 +8,7 @@
     />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-    <title>Rajput Vikas - Personal Portfolio</title>
+    <title>Rajput Vikas</title>
     <!-- Favicon -->
     <link href="assets/images/favicon.png" rel="shortcut icon" />
     <!-- CSS -->
@@ -885,10 +885,10 @@
               <div class="mt-4 mt-lg-5">
                 <!-- Contact Form -->
                 <div class="contact-form">
-                  <form method="post" id="contactform"  action="https://api.web3forms.com/submit" method="POST">
+                  <form id="contactform" action="https://api.web3forms.com/submit" method="POST">
 
                     <!-- Replace with your Access Key -->
-    <input type="hidden" name="access_key" value="4ef111ba-80c3-464f-9fc6-b82c9a45f66d">
+                      <input type="hidden" name="access_key" value="4ef111ba-80c3-464f-9fc6-b82c9a45f66d">
                     <div class="row gx-3 gy-0">
                       <div class="col-12 col-md-6">
                         <input
@@ -927,12 +927,8 @@
                   </form>
                   <!-- Submit result -->
                   <div class="submit-result">
-                    <span id="success"
-                      >Thank you! Your Message has been sent.</span
-                    >
-                    <span id="error"
-                      >Something went wrong, Please try again!</span
-                    >
+                    <span id="success" style="display:none; color:green;">Thank you! Your Message has been sent.</span>
+                    <span id="error" style="display:none; color:red;">Something went wrong, Please try again!</span>
                   </div>
                 </div>
                 <!-- end contact-form -->
@@ -963,6 +959,33 @@
     <script src="assets/plugins/jquery.min.js"></script>
     <script src="assets/plugins/plugins.js"></script>
     <script src="assets/js/functions.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contactform');
+        const successMsg = document.getElementById('success');
+        const errorMsg = document.getElementById('error');
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          successMsg.style.display = 'none';
+          errorMsg.style.display = 'none';
+          const formData = new FormData(form);
+          try {
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: formData
+            });
+            if (response.ok) {
+              form.reset();
+              successMsg.style.display = 'inline';
+            } else {
+              errorMsg.style.display = 'inline';
+            }
+          } catch (err) {
+            errorMsg.style.display = 'inline';
+          }
+        });
+      });
+    </script>
   </body>
 
 </html>
